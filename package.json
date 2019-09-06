@@ -1,8 +1,11 @@
 {
-  "name": "reacttemplate",
+  "name": "merntemplate",
   "version": "0.1.0",
   "private": true,
+  "main": "server.js",
   "dependencies": {
+    "if-env": "^1.0.4",
+    "mongoose": "^5.6.13",
     "normalize.css": "^8.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -13,20 +16,27 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
-    "@storybook/react": "^5.1.10",
-    "@storybook/addons": "^5.1.10",
     "@storybook/addon-a11y": "^5.1.10",
     "@storybook/addon-actions": "^5.1.10",
     "@storybook/addon-knobs": "^5.1.10",
     "@storybook/addon-links": "^5.1.10",
-    "storybook-addon-styled-component-theme": "^1.2.4",
-    "babel-loader": "^8.0.6"
+    "@storybook/addons": "^5.1.10",
+    "@storybook/react": "^5.1.10",
+    "babel-loader": "^8.0.6",
+    "concurrently": "^4.1.0",
+    "dotenv": "^6.2.0",
+    "nodemon": "^1.18.7",
+    "storybook-addon-styled-component-theme": "^1.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "client": "cd client && npm run start",
+    "seed": "node scripts/seedDB.js",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build",
     "storybook": "start-storybook",
     "build-storybook": "build-storybook"
   },
