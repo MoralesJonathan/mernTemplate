@@ -13,7 +13,7 @@ cache:
   directories:
   - node_modules
 before_script:
-  script: yarn seedTest
+  - yarn seedTest
 # deploy:
   # provider: heroku 
 # api_key:
