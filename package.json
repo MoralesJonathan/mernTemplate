@@ -32,17 +32,17 @@
     "supertest": "^4.0.2"
   },
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start": "if-env NODE_ENV=production && yarn start:prod || yarn start:dev",
     "start:prod": "node server.js",
-    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
-    "client": "cd client && npm run start",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"yarn client\"",
+    "client": "cd client && yarn start",
     "seedTest": "node scripts/seedTestDB.js",
     "install": "cd client && npm install",
-    "build": "cd client && npm run build",
-    "heroku-postbuild": "npm run build",
+    "build": "cd client && yarn build",
+    "heroku-postbuild": "yarn build",
     "storybook": "start-storybook",
     "build-storybook": "build-storybook",
-    "test": "if-env NODE_ENV=test && npm run seed && jest test/server.test.js || jest test/server.test.js"
+    "test": "jest test/server.test.js"
   },
   "eslintConfig": {
     "extends": "react-app"
