@@ -10,9 +10,20 @@ const options = {
     autoReconnect: true
 }
 
-const connect = (URI) =>
-    mongoose.connect(URI || process.env.MONGODB_URI, options)
-        .catch(handleError);
+const connection = {
+    connect: () =>
+    new Promise((resolve, reject) => {
+        mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/testdb', options)
+            .then(() => resolve())
+            .catch(e => {
+                handleError(e);
+                reject(e);
+            });
+    }),
+    disconnect: () => {
+        mongoose.connection.close();
+    }
+}
 
 mongoose.connection.on('error', handleError);
 mongoose.connection.on('connecting', () => console.info('Starting to make initial connection to the MongoDB server...'));
@@ -22,4 +33,4 @@ mongoose.connection.on('disconnected', () => console.warn('Mongoose lost connect
 mongoose.connection.on('reconnected', () => console.info('Mongoose successfully reconnected to MongoDB server.'));
 mongoose.connection.on('reconnectFailed', () => console.error('Mongoose was unable to successfully reconnect to MongoDB server. No further attempts will be made.'));
 
-module.exports = connect;
+module.exports = connection;

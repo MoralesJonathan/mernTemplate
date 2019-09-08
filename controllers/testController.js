@@ -1,7 +1,10 @@
 const db = require("../models");
 
 module.exports = {
-  findAll: function(req, res) {
+  testRoute: (req ,res) => {
+    res.status(200).send('Route ok!')
+  },
+  findAll:(req, res) => {
     db.Test
       .find(req.query)
       .sort({ date: -1 })

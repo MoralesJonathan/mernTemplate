@@ -1,19 +1,8 @@
-require('simple-console-colors');
-const express = require("express");
-const routes = require("./routes");
-const server = express();
+const app = require('./app')
 const PORT = process.env.PORT || 3001;
-const mongooseConnect = require("./dbconfig/connection.js");
+const mongooseConnection = require("./dbconfig/connection.js");
 
-server.use(express.urlencoded({ extended: true }));
-server.use(express.json());
-
-if (process.env.NODE_ENV === "production") 
-  server.use(express.static("client/build"));
-
-server.use(routes);
-
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server running on PORT ${PORT}!`);
-  mongooseConnect();
+  mongooseConnection.connect();
 });
