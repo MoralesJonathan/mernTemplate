@@ -1,3 +1,4 @@
+require('simple-console-colors');
 const express = require("express");
 const routes = require("./routes");
 const server = express();
