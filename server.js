@@ -4,5 +4,5 @@ const mongooseConnection = require("./dbconfig/connection.js");
 
 app.listen(PORT, () => {
   console.log(`Server running on PORT ${PORT}!`);
-  mongooseConnection.connect();
+  mongooseConnection.connect().catch( e => console.error(e));
 });
